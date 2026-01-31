@@ -37,6 +37,16 @@ Below is a minimal example of an AGENTS.md file:
 This repository also includes a basic Next.js website hosted at https://agents.md/
 that explains the project’s goals in a simple way, and featuring some examples.
 
+## Provenance
+
+Portions of the UI and copy-to-clipboard behavior are adapted from the
+`agents.md` project under the MIT License.
+
+Upstream reference:
+- Repository: https://github.com/agentsmd/agents.md
+- Commit: efab70c4420be0472c6795a02be0bcf4d5ea0b2b
+- Files: components/CodeExample.tsx, components/icons/CopyIcon.tsx
+
 ### Running the app locally
 1. Install dependencies:
    ```bash

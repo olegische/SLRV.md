@@ -128,6 +128,7 @@ export default function CodeExample({
   href,
   compact = false,
   heightClass,
+  expandable = false,
   centerVertically = false,
 }: CodeExampleProps) {
   const md = code ?? EXAMPLE_AGENTS_MD;
@@ -172,7 +173,7 @@ export default function CodeExample({
           )}
         </button>
         <pre
-          className={`relative rounded-lg bg-white dark:bg-black text-gray-800 dark:text-gray-100 text-xs leading-6 overflow-x-auto p-4 ${
+          className={`relative rounded-lg bg-white dark:bg-black text-gray-800 dark:text-gray-100 text-xs leading-6 overflow-x-auto overflow-y-auto p-4 ${
             centerVertically ? "flex items-center" : ""
           } ${
             heightClass
