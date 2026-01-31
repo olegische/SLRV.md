@@ -150,7 +150,7 @@ function Heading({
 }: {
   level: number;
   text: string;
-}): JSX.Element {
+}): React.ReactElement {
   const Tag = level <= 2 ? "h3" : level === 3 ? "h4" : "h5";
   const className =
     level <= 2

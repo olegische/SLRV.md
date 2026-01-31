@@ -128,7 +128,6 @@ export default function CodeExample({
   href,
   compact = false,
   heightClass,
-  expandable = false,
   centerVertically = false,
 }: CodeExampleProps) {
   const md = code ?? EXAMPLE_AGENTS_MD;

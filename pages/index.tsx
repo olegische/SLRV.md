@@ -41,7 +41,7 @@ export default function LandingPage({
     <div className="flex flex-col min-h-screen items-stretch font-sans">
       <main id="top">
         <Hero title={slrvTitle} intro={slrvIntro} code={slrvMarkdown} repoUrl={repoUrl} />
-        <FAQSection markdown={whyMarkdown} />
+        <FAQSection />
         <ExamplesSection
           references={references}
           intro="The concepts formalized in SLRV.md are grounded in prior work on semantic laundering and responsibility vacuum."
