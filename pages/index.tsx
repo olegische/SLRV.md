@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps<LandingPageProps> = async () => {
     .slice(0, 2)
     .map((p) => p.replace(/\n/g, " ").trim());
   const slrvAction =
-    "Copy the block below into your project's [AGENTS.md](https://agents.md/) to adopt the declaration.";
+    "Copy the SLRV declaration into your project’s [AGENTS.md](https://agents.md/) to adopt the framework.";
   const slrvIntro = [...slrvIntroBase, slrvAction];
 
   const references: ReferenceItem[] = [
