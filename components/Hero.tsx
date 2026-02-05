@@ -120,6 +120,9 @@ export default function Hero({ title, intro, code, repoUrl }: HeroProps) {
 
           <nav className="mt-6 text-sm text-gray-600 dark:text-gray-400">
             <div className="flex flex-wrap gap-4">
+              <a href="#implementation" className="underline hover:no-underline">
+                Implementation
+              </a>
               <a
                 href="#semantic-laundering"
                 className="underline hover:no-underline"

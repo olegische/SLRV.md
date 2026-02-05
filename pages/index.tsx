@@ -13,6 +13,7 @@ import WhySection from "@/components/WhySection";
 import AboutSection from "@/components/AboutSection";
 import { ReferenceItem } from "@/components/ExampleListSection";
 import TransitionSection from "@/components/TransitionSection";
+import ImplementationSection from "@/components/ImplementationSection";
 
 interface LandingPageProps {
   slrvTitle: string;
@@ -21,6 +22,7 @@ interface LandingPageProps {
   slMarkdown: string;
   rvMarkdown: string;
   aboutMarkdown: string;
+  implementationMarkdown: string;
   whyMarkdown: string;
   references: ReferenceItem[];
 }
@@ -32,6 +34,7 @@ export default function LandingPage({
   slMarkdown,
   rvMarkdown,
   aboutMarkdown,
+  implementationMarkdown,
   whyMarkdown,
   references,
 }: LandingPageProps) {
@@ -42,6 +45,7 @@ export default function LandingPage({
       <main id="top">
         <Hero title={slrvTitle} intro={slrvIntro} code={slrvMarkdown} repoUrl={repoUrl} />
         <FAQSection />
+        <ImplementationSection markdown={implementationMarkdown} />
         <ExamplesSection
           references={references}
           intro="The concepts formalized in SLRV.md are grounded in prior work on semantic laundering and responsibility vacuum."
@@ -68,6 +72,7 @@ export const getStaticProps: GetStaticProps<LandingPageProps> = async () => {
   const slMarkdownRaw = readFile("SL.md");
   const rvMarkdownRaw = readFile("RV.md");
   const aboutMarkdownRaw = readFile("ABOUT.md");
+  const implementationMarkdown = readFile("IMPLEMENTATION.md");
 
   const stripTopHeading = (markdown: string) =>
     markdown.replace(/^#\s+.*\n+/, "");
@@ -116,6 +121,7 @@ export const getStaticProps: GetStaticProps<LandingPageProps> = async () => {
       slMarkdown: stripTopHeading(slMarkdownRaw),
       rvMarkdown: stripTopHeading(rvMarkdownRaw),
       aboutMarkdown: stripTopHeading(aboutMarkdownRaw),
+      implementationMarkdown,
       whyMarkdown: extractSection(aboutMarkdownRaw, "Why this exists"),
       references,
     },

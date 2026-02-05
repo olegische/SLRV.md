@@ -1,4 +1,6 @@
 import React from "react";
+import GitHubIcon from "@/components/icons/GitHubIcon";
+import LinkIcon from "@/components/icons/LinkIcon";
 
 type Block =
   | { type: "heading"; level: number; text: string }
@@ -120,7 +122,7 @@ function parseMarkdown(md: string): Block[] {
   return blocks;
 }
 
-function renderInline(text: string): React.ReactNode[] {
+function renderInlineText(text: string): React.ReactNode[] {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*)/g);
 
   return parts.map((part, index) => {
@@ -142,6 +144,42 @@ function renderInline(text: string): React.ReactNode[] {
     }
     return <React.Fragment key={`text-${index}`}>{part}</React.Fragment>;
   });
+}
+
+function renderInline(text: string): React.ReactNode[] {
+  const elements: React.ReactNode[] = [];
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    const [fullMatch, label, href] = match;
+    const start = match.index;
+
+    if (start > lastIndex) {
+      elements.push(...renderInlineText(text.slice(lastIndex, start)));
+    }
+
+    elements.push(
+      <a
+        key={`link-${start}`}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline hover:no-underline"
+      >
+        {renderInlineText(label)}
+      </a>
+    );
+
+    lastIndex = start + fullMatch.length;
+  }
+
+  if (lastIndex < text.length) {
+    elements.push(...renderInlineText(text.slice(lastIndex)));
+  }
+
+  return elements;
 }
 
 function Heading({
@@ -174,9 +212,32 @@ export default function MarkdownContent({ markdown }: { markdown: string }) {
         if (block.type === "list") {
           return (
             <ul key={index} className="list-disc list-inside space-y-1">
-              {block.items.map((item, itemIndex) => (
-                <li key={itemIndex}>{renderInline(item)}</li>
-              ))}
+              {block.items.map((item, itemIndex) => {
+                const linkMatch = item.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+                if (!linkMatch) {
+                  return <li key={itemIndex}>{renderInline(item)}</li>;
+                }
+
+                const [, label, href] = linkMatch;
+                const isRelease = /releases/i.test(href);
+                const Icon = isRelease ? LinkIcon : GitHubIcon;
+
+                return (
+                  <li key={itemIndex} className="list-none">
+                    <span className="flex items-center gap-2">
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline hover:no-underline"
+                      >
+                        {renderInlineText(label)}
+                      </a>
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           );
         }

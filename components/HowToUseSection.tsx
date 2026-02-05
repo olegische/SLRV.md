@@ -15,6 +15,11 @@ export default function HowToUseSection() {
           </a>
         </li>
         <li>
+          <a href="#implementation" className="underline hover:no-underline">
+            Implementation
+          </a>
+        </li>
+        <li>
           <a href="#arxiv" className="underline hover:no-underline">
             Papers & Preprints
           </a>
